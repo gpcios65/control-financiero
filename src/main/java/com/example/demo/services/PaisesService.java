@@ -1,13 +1,13 @@
 package com.example.demo.services;
 
+import com.example.demo.models.Paises;
+
 import java.util.List;
 import java.util.Optional;
 
-import com.example.demo.models.Paises;
-
 public interface PaisesService {
     List<Paises> getAllPaises();
-    Optional<Paises> getPaisById(Integer id);
-    void savePais(Paises pais);
-    void deletePais(Integer id);
+    Optional<Paises> getPaisesById(Integer id);
+    Paises savePaises(Paises pais);
+    void deletePaises(Integer id);
 }

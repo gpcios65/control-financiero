@@ -1,9 +1,9 @@
 package com.example.demo.services;
 
+import com.example.demo.models.Ciudades;
+
 import java.util.List;
 import java.util.Optional;
-
-import com.example.demo.models.Ciudades;
 
 public interface CiudadesService {
     List<Ciudades> getAllCiudades();

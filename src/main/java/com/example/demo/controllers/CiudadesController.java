@@ -1,29 +1,24 @@
 package com.example.demo.controllers;
 
-import java.util.Optional;
-
+import com.example.demo.models.Ciudades;
+import com.example.demo.models.Departamentos;
+import com.example.demo.services.CiudadesService;
+import com.example.demo.services.impl.DepartamentosServiceImpl;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import com.example.demo.models.Ciudades;
-import com.example.demo.services.CiudadesService;
-import com.example.demo.services.DepartamentosService;
-
-import lombok.AllArgsConstructor;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(value = "/ciudades")
 @AllArgsConstructor
 public class CiudadesController {
 
-    private final CiudadesService ciudadesService;
-    private final DepartamentosService departamentosService;
+    private CiudadesService ciudadesService;
+    private DepartamentosServiceImpl departamentosServiceImpl;
 
     @GetMapping
     public String listarCiudades(Model model) {
@@ -33,8 +28,9 @@ public class CiudadesController {
 
     @GetMapping("/form")
     public String mostrarFormulario(Model model) {
+        List<Departamentos> departamentos = departamentosServiceImpl.getAllDepartamentos();
         model.addAttribute("ciudad", new Ciudades());
-        model.addAttribute("departamentos", departamentosService.getAllDepartamentos());
+        model.addAttribute("listadoDepartamentos", departamentos);
         return "ciudades/formulario";
     }
 
@@ -48,8 +44,9 @@ public class CiudadesController {
     public String editarCiudad(@PathVariable Integer id, Model model) {
         Optional<Ciudades> ciudad = ciudadesService.getCiudadById(id);
         if (ciudad.isPresent()) {
+            List<Departamentos> departamentos = departamentosServiceImpl.getAllDepartamentos();
             model.addAttribute("ciudad", ciudad.get());
-            model.addAttribute("departamentos", departamentosService.getAllDepartamentos());
+            model.addAttribute("listadoDepartamentos", departamentos);
             return "ciudades/formulario";
         }
         return "redirect:/ciudades";
