@@ -1,6 +1,6 @@
 package com.example.demo.repositories;
 
-import com.example.demo.models.Mercaderias;
+import com.example.demo.models.PedidoCompras;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MercaderiasRepository extends CrudRepository<Mercaderias, Integer> {
+public interface PedidoComprasRepository extends CrudRepository<PedidoCompras, Integer> {
 
-    @Query("SELECT m FROM Mercaderias m")
-    List<Mercaderias> findByAll();
+    @Query("SELECT p FROM PedidoCompras p")
+    List<PedidoCompras> findByAll();
 }

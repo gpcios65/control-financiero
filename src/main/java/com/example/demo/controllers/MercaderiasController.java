@@ -1,7 +1,7 @@
 package com.example.demo.controllers;
 
-import com.example.demo.models.Marcas;
 import com.example.demo.models.Mercaderias;
+import com.example.demo.models.Marcas;
 import com.example.demo.models.TipoImpuesto;
 import com.example.demo.services.MercaderiasService;
 import com.example.demo.services.impl.MarcasServiceImpl;
@@ -21,7 +21,7 @@ public class MercaderiasController {
 
     private final MercaderiasService mercaderiasService;
     private final MarcasServiceImpl marcasServiceImpl;
-    private final TipoImpuestoServiceImpl tipoImpuestosServiceImpl;
+    private final TipoImpuestoServiceImpl tipoImpuestoServiceImpl;
 
     @GetMapping
     public String listarMercaderias(Model model) {
@@ -32,10 +32,10 @@ public class MercaderiasController {
     @GetMapping("/form")
     public String mostrarFormulario(Model model) {
         List<Marcas> marcas = marcasServiceImpl.getAllMarcas();
-        List<TipoImpuesto> impuestos = tipoImpuestosServiceImpl.getAllTipoImpuestos();
+        List<TipoImpuesto> tiposImpuesto = tipoImpuestoServiceImpl.getAllTipoImpuestos();
         model.addAttribute("mercaderia", new Mercaderias());
         model.addAttribute("listadoMarcas", marcas);
-        model.addAttribute("listadoImpuestos", impuestos);
+        model.addAttribute("listadoTiposImpuesto", tiposImpuesto);
         return "mercaderias/formulario";
     }
 
@@ -50,10 +50,10 @@ public class MercaderiasController {
         Optional<Mercaderias> mercaderia = mercaderiasService.getMercaderiaById(id);
         if (mercaderia.isPresent()) {
             List<Marcas> marcas = marcasServiceImpl.getAllMarcas();
-            List<TipoImpuesto> impuestos = tipoImpuestosServiceImpl.getAllTipoImpuestos();
+            List<TipoImpuesto> tiposImpuesto = tipoImpuestoServiceImpl.getAllTipoImpuestos();
             model.addAttribute("mercaderia", mercaderia.get());
             model.addAttribute("listadoMarcas", marcas);
-            model.addAttribute("listadoImpuestos", impuestos);
+            model.addAttribute("listadoTiposImpuesto", tiposImpuesto);
             return "mercaderias/formulario";
         }
         return "redirect:/mercaderias";
